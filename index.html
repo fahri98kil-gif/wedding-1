@@ -24,6 +24,8 @@
 
   <!-- WebGL 3D Background Canvas -->
   <canvas id="webgl-canvas"></canvas>
+  <!-- Floating Falling Petals Canvas -->
+  <canvas id="petals-canvas"></canvas>
   <div class="luxury-bg-pattern"></div>
 
   <!-- Background Audio Element -->
@@ -41,12 +43,70 @@
     </svg>
   </button>
 
+  <!-- Floating Petals Animation Controller -->
+  <button id="floating-petals-toggle" class="floating-petals-btn active" title="Efek Animasi Bunga" aria-label="Nyalakan atau Hentikan Kelopak Bunga">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2C9.5 5 9.5 8 12 10C14.5 8 14.5 5 12 2Z"></path>
+      <path d="M22 12C19 9.5 16 9.5 14 12C16 14.5 19 14.5 22 12Z"></path>
+      <path d="M12 22C14.5 19 14.5 16 12 14C9.5 16 9.5 19 12 22Z"></path>
+      <path d="M2 12C5 14.5 8 14.5 10 12C8 9.5 5 9.5 2 12Z"></path>
+      <circle cx="12" cy="12" r="2.5"></circle>
+    </svg>
+  </button>
+
   <!-- ==========================================================================
        3D Opening Gate / Luxury Envelope Welcome Modal (Motion-03 Inspired)
        ========================================================================== -->
   <div id="welcome-gate">
     <div class="gate-container">
       <div class="gate-card">
+        <!-- Botanical Corner Floral Ornaments -->
+        <div class="gate-floral gate-floral-tl" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 5 C 30 15, 60 15, 90 40 C 75 45, 50 35, 30 55 C 20 40, 10 20, 5 5 Z" fill="url(#gateFloralGold)" opacity="0.35"/>
+            <path d="M10 10 C 25 35, 45 40, 65 30" stroke="var(--accent-gold)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="28" cy="22" r="7" fill="url(#gateRosePink)"/>
+            <circle cx="28" cy="22" r="3.5" fill="var(--accent-gold-light)"/>
+            <circle cx="52" cy="35" r="5" fill="url(#gateRosePink)" opacity="0.9"/>
+            <path d="M18 42 C 10 35, 8 25, 14 20 C 20 28, 22 36, 18 42 Z" fill="var(--accent-gold)" opacity="0.6"/>
+            <path d="M42 16 C 48 8, 58 10, 60 18 C 52 20, 46 18, 42 16 Z" fill="var(--accent-gold)" opacity="0.5"/>
+            <defs>
+              <linearGradient id="gateFloralGold" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                <stop stop-color="var(--accent-gold-light)"/>
+                <stop offset="1" stop-color="var(--accent-gold-dark)"/>
+              </linearGradient>
+              <radialGradient id="gateRosePink" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFE4E6"/>
+                <stop offset="70%" stop-color="#F472B6"/>
+                <stop offset="100%" stop-color="#BE185D"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="gate-floral gate-floral-br" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M95 95 C 70 85, 40 85, 10 60 C 25 55, 50 65, 70 45 C 80 60, 90 80, 95 95 Z" fill="url(#gateFloralGold2)" opacity="0.35"/>
+            <path d="M90 90 C 75 65, 55 60, 35 70" stroke="var(--accent-gold)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="72" cy="78" r="7" fill="url(#gateRosePink2)"/>
+            <circle cx="72" cy="78" r="3.5" fill="var(--accent-gold-light)"/>
+            <circle cx="48" cy="65" r="5" fill="url(#gateRosePink2)" opacity="0.9"/>
+            <path d="M82 58 C 90 65, 92 75, 86 80 C 80 72, 78 64, 82 58 Z" fill="var(--accent-gold)" opacity="0.6"/>
+            <path d="M58 84 C 52 92, 42 90, 40 82 C 48 80, 54 82, 58 84 Z" fill="var(--accent-gold)" opacity="0.5"/>
+            <defs>
+              <linearGradient id="gateFloralGold2" x1="100" y1="100" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+                <stop stop-color="var(--accent-gold-light)"/>
+                <stop offset="1" stop-color="var(--accent-gold-dark)"/>
+              </linearGradient>
+              <radialGradient id="gateRosePink2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFE4E6"/>
+                <stop offset="70%" stop-color="#F472B6"/>
+                <stop offset="100%" stop-color="#BE185D"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+
         <!-- 3D Wax Seal Accent -->
         <div class="wax-seal">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -88,8 +148,68 @@
       <div class="hero-subtitle" id="hero-subtitle-text">The Wedding Celebration</div>
       <h2 class="hero-title font-serif gold-text" id="hero-couple-names">Arya &amp; Dinda</h2>
       
-      <!-- 3D Arched Portrait Frame -->
+      <!-- 3D Arched Portrait Frame with Blooming Floral Accents -->
       <div class="hero-arch-container">
+        <!-- Left Arch Floral Bouquet -->
+        <div class="arch-floral-accent arch-floral-l" aria-hidden="true">
+          <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(10, 15)">
+              <!-- Leaf foliage -->
+              <path d="M5 80 C 15 50, 40 45, 60 55 C 45 70, 25 85, 5 80 Z" fill="var(--accent-gold)" opacity="0.45"/>
+              <path d="M12 75 C 28 60, 48 65, 58 75 C 40 85, 22 88, 12 75 Z" fill="var(--accent-gold-dark)" opacity="0.5"/>
+              <path d="M30 40 C 20 25, 30 10, 45 15 C 48 30, 40 38, 30 40 Z" fill="var(--accent-gold-light)" opacity="0.6"/>
+              <!-- Blooming Rose Centerpiece -->
+              <circle cx="35" cy="55" r="16" fill="url(#heroRosePinkL)"/>
+              <circle cx="35" cy="55" r="9" fill="url(#heroRosePinkCenterL)"/>
+              <circle cx="35" cy="55" r="4" fill="var(--accent-gold-light)"/>
+              <!-- Small bud -->
+              <circle cx="58" cy="35" r="7" fill="url(#heroRosePinkL)" opacity="0.9"/>
+              <circle cx="15" cy="45" r="5" fill="#FFF1F2"/>
+            </g>
+            <defs>
+              <radialGradient id="heroRosePinkL" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFF1F2"/>
+                <stop offset="65%" stop-color="#FB7185"/>
+                <stop offset="100%" stop-color="#BE185D"/>
+              </radialGradient>
+              <radialGradient id="heroRosePinkCenterL" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFE4E6"/>
+                <stop offset="100%" stop-color="#9D174D"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Right Arch Floral Bouquet -->
+        <div class="arch-floral-accent arch-floral-r" aria-hidden="true">
+          <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(10, 15)">
+              <!-- Leaf foliage -->
+              <path d="M85 80 C 75 50, 50 45, 30 55 C 45 70, 65 85, 85 80 Z" fill="var(--accent-gold)" opacity="0.45"/>
+              <path d="M78 75 C 62 60, 42 65, 32 75 C 50 85, 68 88, 78 75 Z" fill="var(--accent-gold-dark)" opacity="0.5"/>
+              <path d="M60 40 C 70 25, 60 10, 45 15 C 42 30, 50 38, 60 40 Z" fill="var(--accent-gold-light)" opacity="0.6"/>
+              <!-- Blooming Rose Centerpiece -->
+              <circle cx="55" cy="55" r="16" fill="url(#heroRosePinkR)"/>
+              <circle cx="55" cy="55" r="9" fill="url(#heroRosePinkCenterR)"/>
+              <circle cx="55" cy="55" r="4" fill="var(--accent-gold-light)"/>
+              <!-- Small bud -->
+              <circle cx="32" cy="35" r="7" fill="url(#heroRosePinkR)" opacity="0.9"/>
+              <circle cx="75" cy="45" r="5" fill="#FFF1F2"/>
+            </g>
+            <defs>
+              <radialGradient id="heroRosePinkR" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFF1F2"/>
+                <stop offset="65%" stop-color="#FB7185"/>
+                <stop offset="100%" stop-color="#BE185D"/>
+              </radialGradient>
+              <radialGradient id="heroRosePinkCenterR" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFE4E6"/>
+                <stop offset="100%" stop-color="#9D174D"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+
         <div class="arch-frame">
           <img id="hero-main-photo" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Mempelai" class="hero-photo" />
         </div>
@@ -769,6 +889,47 @@
             <div class="form-group">
               <label class="form-label" for="adm-hero-badge-date">Teks Tanggal Utama (Hero Badge)</label>
               <input type="text" id="adm-hero-badge-date" class="form-input" placeholder="Sabtu, 28 Desember 2026" />
+            </div>
+          </div>
+
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin: 1.5rem 0 0.8rem;">Efek Animasi Bunga &amp; Kelopak (Floral Atmosphere)</h4>
+          <div class="admin-field-grid">
+            <div class="form-group">
+              <label class="form-label" for="adm-petals-enabled">Status Efek Bunga Gugur</label>
+              <select id="adm-petals-enabled" class="form-select">
+                <option value="true">Aktif (Kelopak Melayang &amp; Gugur)</option>
+                <option value="false">Nonaktifkan Efek Bunga</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="adm-petals-style">Tipe &amp; Warna Bunga</label>
+              <select id="adm-petals-style" class="form-select">
+                <option value="rose">Romantic Rose (Kelopak Mawar Merah Muda)</option>
+                <option value="sakura">Cherry Blossom (Kelopak Sakura Lembut)</option>
+                <option value="jasmine">Pure Jasmine (Melati Putih &amp; Emas)</option>
+                <option value="gold">Royal Gold (Kelopak Emas Berkilau)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-field-grid">
+            <div class="form-group">
+              <label class="form-label" for="adm-petals-speed">Kecepatan Gugur Bunga</label>
+              <select id="adm-petals-speed" class="form-select">
+                <option value="gentle">Lembut &amp; Perlahan (Slow Motion)</option>
+                <option value="normal">Standar Alami (Natural Breeze)</option>
+                <option value="breeze">Semilir Angin Romantis (Dinamis)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="adm-petals-density">Kepadatan Kelopak</label>
+              <select id="adm-petals-density" class="form-select">
+                <option value="light">Ringan &amp; Tenang (Minimalis)</option>
+                <option value="normal">Standar Ideal (Romantis)</option>
+                <option value="dense">Rimbun &amp; Meriah (Penuh Bunga)</option>
+              </select>
             </div>
           </div>
 

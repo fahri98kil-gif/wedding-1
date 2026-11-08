@@ -265,6 +265,17 @@ body {
   opacity: 0.85;
 }
 
+/* Falling Flower Petals Canvas */
+#petals-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 15;
+}
+
 .luxury-bg-pattern {
   position: fixed;
   inset: 0;
@@ -378,11 +389,32 @@ section {
 }
 
 .ornate-diamond {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background: var(--accent-gold);
   transform: rotate(45deg);
-  box-shadow: 0 0 8px var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+  border-radius: 2px;
+  position: relative;
+}
+
+.ornate-diamond::before,
+.ornate-diamond::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-gold-light);
+  border-radius: 2px;
+}
+
+.ornate-diamond::before {
+  transform: rotate(30deg);
+  opacity: 0.75;
+}
+
+.ornate-diamond::after {
+  transform: rotate(60deg);
+  opacity: 0.75;
 }
 
 /* ==========================================================================
@@ -438,6 +470,36 @@ section {
   border-radius: 24px;
   border: 1px dashed var(--border-gold);
   pointer-events: none;
+}
+
+/* Botanical Corner Floral Accents on Welcome Gate Card */
+.gate-floral {
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  pointer-events: none;
+  z-index: 2;
+  transition: transform 0.5s ease;
+}
+
+.gate-floral-tl {
+  top: -4px;
+  left: -4px;
+  transform-origin: top left;
+  animation: floralSway 7s ease-in-out infinite alternate;
+}
+
+.gate-floral-br {
+  bottom: -4px;
+  right: -4px;
+  transform-origin: bottom right;
+  animation: floralSway 8s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floralSway {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(2.5deg) scale(1.02); }
+  100% { transform: rotate(-1.5deg) scale(0.99); }
 }
 
 .wax-seal {
@@ -532,6 +594,39 @@ section {
   max-width: 280px;
   margin: 0 auto 2rem;
   position: relative;
+}
+
+/* Blooming Floral Flanks on Hero Arch */
+.arch-floral-accent {
+  position: absolute;
+  width: 105px;
+  height: 105px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.arch-floral-l {
+  bottom: -15px;
+  left: -26px;
+  transform-origin: bottom left;
+  animation: floralBreezeLeft 5.5s ease-in-out infinite;
+}
+
+.arch-floral-r {
+  bottom: -15px;
+  right: -26px;
+  transform-origin: bottom right;
+  animation: floralBreezeRight 6s ease-in-out infinite;
+}
+
+@keyframes floralBreezeLeft {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-3px, -2px) rotate(-3deg); }
+}
+
+@keyframes floralBreezeRight {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(3px, -2px) rotate(3deg); }
 }
 
 .hero-photo {
@@ -1311,6 +1406,52 @@ section {
 .floating-music-btn svg {
   width: 22px;
   height: 22px;
+}
+
+/* Floating Petals Animation Controller */
+.floating-petals-btn {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top, 16px));
+  right: 72px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--bg-card-solid);
+  border: 1.5px solid var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-gold);
+  cursor: pointer;
+  z-index: 900;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 15px var(--gold-glow);
+  transition: all 0.3s ease;
+}
+
+.floating-petals-btn:hover {
+  transform: scale(1.08);
+  border-color: var(--accent-gold-light);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), 0 0 20px var(--gold-glow);
+}
+
+.floating-petals-btn.active {
+  color: #F472B6;
+  border-color: #F472B6;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 18px rgba(244, 114, 182, 0.45);
+}
+
+.floating-petals-btn.active svg {
+  animation: petalPulse 3s ease-in-out infinite;
+}
+
+.floating-petals-btn:not(.active) {
+  opacity: 0.6;
+  filter: grayscale(0.8);
+}
+
+@keyframes petalPulse {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(20deg) scale(1.1); }
 }
 
 /* Floating Bottom Navigation Dock (Synchronized across all screen sizes) */

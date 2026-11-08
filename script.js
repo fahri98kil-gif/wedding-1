@@ -49,6 +49,14 @@ const defaultWeddingData = {
   gateSubtitle: "The Wedding Celebration Of",
   heroBadgeDate: "Sabtu, 28 Desember 2026",
   
+  // Falling Petals Atmosphere Config
+  petals: {
+    enabled: true,
+    style: "rose", // 'rose', 'sakura', 'jasmine', 'gold'
+    speed: "normal", // 'gentle', 'normal', 'breeze'
+    density: "normal" // 'light', 'normal', 'dense'
+  },
+  
   // Hero & Couple Info
   weddingDate: "2026-12-28T09:00",
   groom: {
@@ -185,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initPersonalizedGuest();
   initAudio();
   initThreeJsBackground();
+  initFallingPetals();
   initCountdown();
   renderAllData();
   bindEvents();
@@ -446,6 +455,263 @@ function initThreeJsBackground() {
   });
 }
 
+// --- 3b. Animated Falling Flower Petals Engine (Romantic Luxury Atmosphere) ---
+let petalsCanvas = null;
+let petalsCtx = null;
+let petalsList = [];
+let burstPetalsList = [];
+let isPetalsActive = true;
+let petalsAnimFrame = null;
+let currentPetalStyle = "rose";
+let currentPetalSpeed = "normal";
+let currentPetalDensity = "normal";
+
+class RomanticPetal {
+  constructor(w, h, style = "rose", speedMode = "normal") {
+    this.w = w;
+    this.h = h;
+    this.style = style;
+    this.speedMode = speedMode;
+    this.reset(true);
+  }
+
+  reset(initial = false) {
+    this.x = Math.random() * this.w;
+    this.y = initial ? Math.random() * this.h : -25 - Math.random() * 40;
+    this.size = Math.random() * 11 + 11; // 11px to 22px
+    
+    let baseSpeed = 1.0;
+    if (this.speedMode === "gentle") baseSpeed = 0.65;
+    if (this.speedMode === "breeze") baseSpeed = 1.45;
+
+    this.speedY = (Math.random() * 0.9 + 0.65) * baseSpeed;
+    this.swayAmp = Math.random() * 1.6 + 0.8;
+    this.swaySpeed = Math.random() * 0.022 + 0.015;
+    this.swayAngle = Math.random() * Math.PI * 2;
+
+    // 3D rotation axes
+    this.rotX = Math.random() * Math.PI;
+    this.rotY = Math.random() * Math.PI;
+    this.rotZ = Math.random() * Math.PI * 2;
+    this.rotSpeedX = (Math.random() - 0.5) * 0.035;
+    this.rotSpeedY = (Math.random() - 0.5) * 0.045;
+    this.rotSpeedZ = (Math.random() - 0.5) * 0.025;
+
+    this.opacity = Math.random() * 0.35 + 0.62;
+    this.aspectRatio = Math.random() * 0.25 + 0.8;
+    this.isBurst = false;
+    this.vx = 0;
+    this.vy = 0;
+  }
+
+  update(wind) {
+    if (this.isBurst) {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vx *= 0.96;
+      this.vy += 0.04;
+      this.rotZ += this.rotSpeedZ * 1.8;
+      this.opacity -= 0.009;
+      return this.opacity > 0;
+    }
+
+    this.swayAngle += this.swaySpeed;
+    this.x += Math.sin(this.swayAngle) * this.swayAmp + wind;
+    this.y += this.speedY;
+
+    this.rotX += this.rotSpeedX;
+    this.rotY += this.rotSpeedY;
+    this.rotZ += this.rotSpeedZ;
+
+    if (this.y > this.h + 30 || this.x < -40 || this.x > this.w + 40) {
+      this.reset(false);
+    }
+    return true;
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotZ);
+
+    // 3D perspective projection scaling
+    const scaleX = Math.cos(this.rotY);
+    const scaleY = Math.cos(this.rotX) * this.aspectRatio;
+    ctx.scale(scaleX, scaleY);
+    ctx.globalAlpha = Math.max(0, Math.min(1, this.opacity));
+
+    let cStart, cMid, cEnd, vein;
+    if (this.style === "sakura") {
+      cStart = "rgba(255, 240, 243, 0.95)";
+      cMid = "rgba(251, 113, 133, 0.9)";
+      cEnd = "rgba(244, 63, 94, 0.85)";
+      vein = "rgba(225, 29, 72, 0.25)";
+    } else if (this.style === "jasmine") {
+      cStart = "rgba(255, 255, 255, 0.98)";
+      cMid = "rgba(254, 243, 199, 0.9)";
+      cEnd = "rgba(252, 211, 77, 0.75)";
+      vein = "rgba(217, 119, 6, 0.2)";
+    } else if (this.style === "gold") {
+      cStart = "rgba(254, 240, 138, 0.95)";
+      cMid = "rgba(217, 119, 6, 0.9)";
+      cEnd = "rgba(180, 83, 9, 0.85)";
+      vein = "rgba(254, 243, 199, 0.35)";
+    } else {
+      // Default: Romantic Rose
+      cStart = "rgba(255, 228, 230, 0.96)";
+      cMid = "rgba(244, 114, 182, 0.92)";
+      cEnd = "rgba(225, 29, 72, 0.82)";
+      vein = "rgba(190, 18, 60, 0.22)";
+    }
+
+    const rad = this.size;
+    const grad = ctx.createRadialGradient(0, -rad * 0.25, rad * 0.1, 0, 0, rad);
+    grad.addColorStop(0, cStart);
+    grad.addColorStop(0.55, cMid);
+    grad.addColorStop(1, cEnd);
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(0, -rad);
+    ctx.bezierCurveTo(rad * 0.9, -rad * 0.75, rad * 1.1, rad * 0.5, 0, rad);
+    ctx.bezierCurveTo(-rad * 1.1, rad * 0.5, -rad * 0.9, -rad * 0.75, 0, -rad);
+    ctx.closePath();
+    ctx.fill();
+
+    // Petal inner vein
+    ctx.strokeStyle = vein;
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    ctx.moveTo(0, -rad * 0.75);
+    ctx.quadraticCurveTo(rad * 0.08, 0, 0, rad * 0.8);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+}
+
+function initFallingPetals() {
+  petalsCanvas = document.getElementById("petals-canvas");
+  if (!petalsCanvas) return;
+  petalsCtx = petalsCanvas.getContext("2d");
+
+  function resizePetalsCanvas() {
+    petalsCanvas.width = window.innerWidth;
+    petalsCanvas.height = window.innerHeight;
+  }
+  resizePetalsCanvas();
+  window.addEventListener("resize", resizePetalsCanvas);
+
+  setupPetalParticles();
+
+  // Floating Toggle Button
+  const toggleBtn = document.getElementById("floating-petals-toggle");
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      isPetalsActive = !isPetalsActive;
+      if (isPetalsActive) {
+        toggleBtn.classList.add("active");
+        showToast("Efek kelopak bunga diaktifkan");
+      } else {
+        toggleBtn.classList.remove("active");
+        if (petalsCtx && petalsCanvas) petalsCtx.clearRect(0, 0, petalsCanvas.width, petalsCanvas.height);
+        showToast("Efek kelopak bunga dinonaktifkan");
+      }
+    });
+  }
+
+  // Interactive Click / Tap Petal Burst
+  window.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target.closest("button, input, textarea, select, a, .dashboard-panel")) return;
+    spawnPetalBurst(e.clientX, e.clientY);
+  });
+
+  // Animation Loop
+  let windTime = 0;
+  function animatePetals() {
+    petalsAnimFrame = requestAnimationFrame(animatePetals);
+    if (!isPetalsActive || !petalsCtx || !petalsCanvas) return;
+
+    windTime += 0.012;
+    const wind = Math.sin(windTime) * 0.45;
+
+    petalsCtx.clearRect(0, 0, petalsCanvas.width, petalsCanvas.height);
+
+    for (let i = 0; i < petalsList.length; i++) {
+      petalsList[i].update(wind);
+      petalsList[i].draw(petalsCtx);
+    }
+
+    // Update & draw interactive bursts
+    for (let i = burstPetalsList.length - 1; i >= 0; i--) {
+      const alive = burstPetalsList[i].update(wind);
+      if (alive) {
+        burstPetalsList[i].draw(petalsCtx);
+      } else {
+        burstPetalsList.splice(i, 1);
+      }
+    }
+  }
+
+  animatePetals();
+}
+
+function setupPetalParticles() {
+  if (!petalsCanvas) return;
+  const w = petalsCanvas.width;
+  const h = petalsCanvas.height;
+
+  let count = 35;
+  if (currentPetalDensity === "light") count = 20;
+  if (currentPetalDensity === "dense") count = 55;
+  if (window.innerWidth < 600) {
+    count = Math.floor(count * 0.75); // optimized for mobile
+  }
+
+  petalsList = [];
+  for (let i = 0; i < count; i++) {
+    petalsList.push(new RomanticPetal(w, h, currentPetalStyle, currentPetalSpeed));
+  }
+}
+
+function spawnPetalBurst(x, y) {
+  if (!petalsCanvas || !isPetalsActive) return;
+  const burstCount = 6;
+  for (let i = 0; i < burstCount; i++) {
+    const p = new RomanticPetal(petalsCanvas.width, petalsCanvas.height, currentPetalStyle, currentPetalSpeed);
+    p.x = x;
+    p.y = y;
+    p.size = Math.random() * 7 + 9;
+    p.isBurst = true;
+    const angle = (Math.PI * 2 * i) / burstCount + (Math.random() - 0.5) * 0.5;
+    const speed = Math.random() * 2.5 + 1.2;
+    p.vx = Math.cos(angle) * speed;
+    p.vy = Math.sin(angle) * speed - 1.5;
+    p.opacity = 1.0;
+    burstPetalsList.push(p);
+  }
+}
+
+function updatePetalsConfig(cfg) {
+  if (!cfg) return;
+  if (typeof cfg.enabled !== "undefined") {
+    isPetalsActive = Boolean(cfg.enabled);
+    const toggleBtn = document.getElementById("floating-petals-toggle");
+    if (toggleBtn) {
+      if (isPetalsActive) toggleBtn.classList.add("active");
+      else toggleBtn.classList.remove("active");
+    }
+    if (!isPetalsActive && petalsCtx && petalsCanvas) {
+      petalsCtx.clearRect(0, 0, petalsCanvas.width, petalsCanvas.height);
+    }
+  }
+  if (cfg.style) currentPetalStyle = cfg.style;
+  if (cfg.speed) currentPetalSpeed = cfg.speed;
+  if (cfg.density) currentPetalDensity = cfg.density;
+  setupPetalParticles();
+}
+
 // --- 4. Countdown Timer ---
 let countdownInterval = null;
 function initCountdown() {
@@ -490,6 +756,11 @@ function initCountdown() {
 function renderAllData() {
   // 1. Theme
   document.documentElement.setAttribute("data-theme", weddingState.theme || "emerald");
+
+  // 1c. Falling Petals Atmosphere
+  if (weddingState.petals) {
+    updatePetalsConfig(weddingState.petals);
+  }
 
   // 1b. Gate & Hero Subtitles
   const gateSubEl = document.getElementById("gate-subtitle");
@@ -1146,6 +1417,14 @@ function populateAdminForm() {
   setVal("adm-pin", weddingState.adminPin || "1234");
   setVal("adm-gate-subtitle", weddingState.gateSubtitle || "The Wedding Celebration Of");
   setVal("adm-hero-badge-date", weddingState.heroBadgeDate || "Sabtu, 28 Desember 2026");
+  
+  // Petals Settings
+  const pet = weddingState.petals || defaultWeddingData.petals;
+  setVal("adm-petals-enabled", String(pet.enabled !== false));
+  setVal("adm-petals-style", pet.style || "rose");
+  setVal("adm-petals-speed", pet.speed || "normal");
+  setVal("adm-petals-density", pet.density || "normal");
+
   setVal("adm-audio-url", weddingState.audioUrl);
   setVal("adm-audio-title", weddingState.audioTitle);
   setVal("adm-quote-arabic", weddingState.quote.arabic);
@@ -1478,6 +1757,13 @@ async function saveAdminSettingsToFirebase() {
   weddingState.adminPin = getVal("adm-pin") || "1234";
   weddingState.gateSubtitle = getVal("adm-gate-subtitle") || "The Wedding Celebration Of";
   weddingState.heroBadgeDate = getVal("adm-hero-badge-date") || "Sabtu, 28 Desember 2026";
+  
+  if (!weddingState.petals) weddingState.petals = {};
+  weddingState.petals.enabled = getVal("adm-petals-enabled") === "true";
+  weddingState.petals.style = getVal("adm-petals-style") || "rose";
+  weddingState.petals.speed = getVal("adm-petals-speed") || "normal";
+  weddingState.petals.density = getVal("adm-petals-density") || "normal";
+
   weddingState.audioUrl = getVal("adm-audio-url") || defaultWeddingData.audioUrl;
   weddingState.audioTitle = getVal("adm-audio-title") || defaultWeddingData.audioTitle;
 
