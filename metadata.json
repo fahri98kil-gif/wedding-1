@@ -1,0 +1,6 @@
+{
+  "name": "DexxDigital - Luxury 3D Wedding Invitation & CMS",
+  "description": "Website undangan pernikahan digital 3D modern & mewah dengan cloud CMS Firebase, tema kustom, animasi interaktif, dan panel admin tersembunyi karya DexxDigital.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

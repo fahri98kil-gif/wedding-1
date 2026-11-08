@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="emerald">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>The Wedding of Arya & Dinda | DexxDigital</title>
+  <meta name="description" content="Undangan Pernikahan Digital Eksklusif Raden Arya Danendra & Adinda Kirana Larasati. Didesain dengan sentuhan 3D mewah dan sistem cloud oleh DexxDigital." />
+  <meta property="og:title" content="The Wedding of Arya & Dinda" />
+  <meta property="og:description" content="Kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri momen bahagia pernikahan kami." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts & Three.js 3D Library -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Vanilla CSS Style -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- WebGL 3D Background Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+  <div class="luxury-bg-pattern"></div>
+
+  <!-- Background Audio Element -->
+  <audio id="bg-audio" preload="auto"></audio>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Floating Audio Disc Controller -->
+  <button id="floating-music-toggle" class="floating-music-btn" title="Kontrol Musik" aria-label="Putar atau Jeda Musik">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18V5l12-2v13"></path>
+      <circle cx="6" cy="18" r="3"></circle>
+      <circle cx="18" cy="16" r="3"></circle>
+    </svg>
+  </button>
+
+  <!-- ==========================================================================
+       3D Opening Gate / Luxury Envelope Welcome Modal (Motion-03 Inspired)
+       ========================================================================== -->
+  <div id="welcome-gate">
+    <div class="gate-container">
+      <div class="gate-card">
+        <!-- 3D Wax Seal Accent -->
+        <div class="wax-seal">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+
+        <p class="hero-subtitle" id="gate-subtitle">The Wedding Celebration Of</p>
+        <h1 class="font-serif gold-text" id="gate-couple-names" style="font-size: 2.4rem; line-height: 1.2; margin-bottom: 0.5rem;">Arya &amp; Dinda</h1>
+        
+        <div class="ornate-divider">
+          <span class="ornate-line"></span>
+          <span class="ornate-diamond"></span>
+          <span class="ornate-line"></span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+        <div class="guest-pill" id="guest-name-badge">Tamu Undangan Terhormat</div>
+        <p id="gate-message" style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 2rem;">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Anda untuk hadir pada hari bahagia kami.</p>
+
+        <button type="button" id="btn-open-gate" class="btn-open-gate">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Buka Undangan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Main Mobile-First Page Wrapper
+       ========================================================================== -->
+  <div class="page-wrapper" id="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="section-home">
+      <div class="hero-subtitle" id="hero-subtitle-text">The Wedding Celebration</div>
+      <h2 class="hero-title font-serif gold-text" id="hero-couple-names">Arya &amp; Dinda</h2>
+      
+      <!-- 3D Arched Portrait Frame -->
+      <div class="hero-arch-container">
+        <div class="arch-frame">
+          <img id="hero-main-photo" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Mempelai" class="hero-photo" />
+        </div>
+      </div>
+
+      <div class="hero-date-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span id="hero-date-text">Sabtu, 28 Desember 2026</span>
+      </div>
+
+      <!-- Live Countdown Timer -->
+      <div class="countdown-grid">
+        <div class="countdown-box">
+          <div class="countdown-val" id="cd-days">00</div>
+          <div class="countdown-label">Hari</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-val" id="cd-hours">00</div>
+          <div class="countdown-label">Jam</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-val" id="cd-mins">00</div>
+          <div class="countdown-label">Menit</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-val" id="cd-secs">00</div>
+          <div class="countdown-label">Detik</div>
+        </div>
+      </div>
+
+      <button type="button" id="btn-add-calendar" class="btn-gold-outline" style="max-width: 260px; margin: 0 auto;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        Simpan ke Kalender
+      </button>
+    </section>
+
+    <!-- AYAT & QUOTE SUCI SECTION -->
+    <section id="section-quote">
+      <div class="card-luxury quote-card">
+        <div class="quote-arabic font-serif" id="quote-arabic-text">
+          وَمِنْ ءَايَٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+        </div>
+        <p class="quote-translation" id="quote-trans-text">
+          "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+        </p>
+        <div class="quote-source" id="quote-source-text">QS. Ar-Rum : 21</div>
+      </div>
+    </section>
+
+    <!-- THE COUPLE (MEMPELAI) SECTION -->
+    <section id="section-couple">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <p class="hero-subtitle">Groom &amp; Bride</p>
+        <h2 class="font-serif gold-text" style="font-size: 2.4rem;">Pasangan Mempelai</h2>
+        <div class="ornate-divider">
+          <span class="ornate-line"></span>
+          <span class="ornate-diamond"></span>
+          <span class="ornate-line"></span>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 380px; margin: 0 auto;">
+          Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud melangsungkan ikrar suci pernikahan:
+        </p>
+      </div>
+
+      <div class="couple-wrapper">
+        <!-- Groom Card -->
+        <div class="card-luxury profile-card">
+          <div class="arch-frame profile-arch">
+            <img id="groom-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Mempelai Pria" class="profile-photo" />
+          </div>
+          <h3 class="profile-name font-serif" id="groom-fullname">Raden Arya Danendra, S.T.</h3>
+          <p class="profile-nickname font-editorial" id="groom-nickname">Arya</p>
+          <p class="profile-bio" id="groom-parents">Putra pertama dari Bpk. Ir. Bambang Soediro &amp; Ibu Hj. Ratna Dewi</p>
+          <a id="groom-ig-link" href="https://instagram.com/arya_danendra" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span id="groom-ig-handle">@arya_danendra</span>
+          </a>
+        </div>
+
+        <!-- 3D Ampersand Accent -->
+        <div class="couple-ampersand-wrapper">
+          <span class="couple-ampersand">&amp;</span>
+        </div>
+
+        <!-- Bride Card -->
+        <div class="card-luxury profile-card">
+          <div class="arch-frame profile-arch">
+            <img id="bride-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Mempelai Wanita" class="profile-photo" />
+          </div>
+          <h3 class="profile-name font-serif" id="bride-fullname">Adinda Kirana Larasati, M.Psi.</h3>
+          <p class="profile-nickname font-editorial" id="bride-nickname">Dinda</p>
+          <p class="profile-bio" id="bride-parents">Putri kedua dari Bpk. Prof. Dr. Hendra Kusuma &amp; Ibu Dra. Siti Aminah</p>
+          <a id="bride-ig-link" href="https://instagram.com/dinda_larasati" target="_blank" rel="noopener noreferrer" class="social-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span id="bride-ig-handle">@dinda_larasati</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS & SCHEDULE SECTION -->
+    <section id="section-events">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <p class="hero-subtitle">Wedding Events</p>
+        <h2 class="font-serif gold-text" style="font-size: 2.4rem;">Rangkaian Acara</h2>
+        <div class="ornate-divider">
+          <span class="ornate-line"></span>
+          <span class="ornate-diamond"></span>
+          <span class="ornate-line"></span>
+        </div>
+      </div>
+
+      <!-- Akad Nikah Card -->
+      <div class="card-luxury event-card">
+        <div class="event-icon-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="font-serif gold-text" style="font-size: 1.8rem; text-align: center; margin-bottom: 0.5rem;" id="akad-title">Akad Nikah</h3>
+        
+        <div class="event-details-grid">
+          <div class="event-item">
+            <div class="event-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 0.78rem; color: var(--text-gold); font-weight: 600;">HARI &amp; TANGGAL</div>
+              <div style="font-weight: 600;" id="akad-date">Sabtu, 28 Desember 2026</div>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 0.78rem; color: var(--text-gold); font-weight: 600;">WAKTU</div>
+              <div style="font-weight: 600;" id="akad-time">08:00 - 10:00 WIB</div>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 0.78rem; color: var(--text-gold); font-weight: 600;">LOKASI</div>
+              <div style="font-weight: 600;" id="akad-venue">Masjid Raya Baiturrahman Ballroom</div>
+              <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="akad-address">Jl. Diponegoro No. 45, Menteng, Jakarta Pusat</div>
+            </div>
+          </div>
+        </div>
+
+        <a id="akad-maps-btn" href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-gold-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+            <line x1="8" y1="2" x2="8" y2="18"></line>
+            <line x1="16" y1="6" x2="16" y2="22"></line>
+          </svg>
+          Buka Google Maps
+        </a>
+      </div>
+
+      <!-- Resepsi Pernikahan Card -->
+      <div class="card-luxury event-card">
+        <div class="event-icon-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif gold-text" style="font-size: 1.8rem; text-align: center; margin-bottom: 0.5rem;" id="resepsi-title">Resepsi Pernikahan</h3>
+        
+        <div class="event-details-grid">
+          <div class="event-item">
+            <div class="event-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 0.78rem; color: var(--text-gold); font-weight: 600;">HARI &amp; TANGGAL</div>
+              <div style="font-weight: 600;" id="resepsi-date">Sabtu, 28 Desember 2026</div>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 0.78rem; color: var(--text-gold); font-weight: 600;">WAKTU</div>
+              <div style="font-weight: 600;" id="resepsi-time">11:00 - 14:00 WIB</div>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 0.78rem; color: var(--text-gold); font-weight: 600;">LOKASI</div>
+              <div style="font-weight: 600;" id="resepsi-venue">The Glass House Grand Ballroom</div>
+              <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="resepsi-address">Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan</div>
+            </div>
+          </div>
+        </div>
+
+        <a id="resepsi-maps-btn" href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-gold-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+            <line x1="8" y1="2" x2="8" y2="18"></line>
+            <line x1="16" y1="6" x2="16" y2="22"></line>
+          </svg>
+          Buka Google Maps
+        </a>
+      </div>
+
+      <!-- Live Stream Card -->
+      <div class="card-luxury" style="text-align: center; margin-top: 1.5rem;">
+        <h4 class="font-serif gold-text" style="font-size: 1.4rem; margin-bottom: 0.5rem;">Siaran Langsung (Live Streaming)</h4>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Bagi sanak keluarga &amp; sahabat yang berhalangan hadir langsung, prosesi sakral dapat disaksikan secara virtual.
+        </p>
+        <a id="live-stream-btn" href="https://youtube.com/live" target="_blank" rel="noopener noreferrer" class="btn-gold-outline" style="max-width: 240px; margin: 0 auto;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+          Tonton Live Streaming
+        </a>
+      </div>
+    </section>
+
+    <!-- LOVE STORY SECTION -->
+    <section id="section-story">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <p class="hero-subtitle">Our Journey</p>
+        <h2 class="font-serif gold-text" style="font-size: 2.4rem;">Kisah Cinta Kami</h2>
+        <div class="ornate-divider">
+          <span class="ornate-line"></span>
+          <span class="ornate-diamond"></span>
+          <span class="ornate-line"></span>
+        </div>
+      </div>
+
+      <div class="card-luxury">
+        <div class="timeline-container" id="timeline-story-list">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PHOTO GALLERY SECTION -->
+    <section id="section-gallery">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <p class="hero-subtitle">Sweet Memories</p>
+        <h2 class="font-serif gold-text" style="font-size: 2.4rem;">Galeri Bahagia</h2>
+        <div class="ornate-divider">
+          <span class="ornate-line"></span>
+          <span class="ornate-diamond"></span>
+          <span class="ornate-line"></span>
+        </div>
+        <p style="font-size: 0.82rem; color: var(--text-muted);">Momen-momen indah kebersamaan kami menuju hari pernikahan</p>
+      </div>
+
+      <div class="gallery-grid" id="gallery-items-grid">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- DIGITAL GIFT (AMPLOP DIGITAL) SECTION -->
+    <section id="section-gift">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <p class="hero-subtitle">Wedding Gift</p>
+        <h2 class="font-serif gold-text" style="font-size: 2.4rem;">Tanda Kasih (Amplop Digital)</h2>
+        <div class="ornate-divider">
+          <span class="ornate-line"></span>
+          <span class="ornate-diamond"></span>
+          <span class="ornate-line"></span>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); max-width: 360px; margin: 0 auto;">
+          Doa restu Anda merupakan karunia terindah bagi kami. Namun apabila ingin memberikan tanda kasih berupa kado pernikahan, dapat disalurkan melalui:
+        </p>
+      </div>
+
+      <!-- Bank 1 -->
+      <div class="bank-card">
+        <div class="bank-header">
+          <div class="bank-chip"></div>
+          <div class="bank-name" id="bank1-name">BCA</div>
+        </div>
+        <div class="bank-number-box">
+          <span class="bank-number" id="bank1-num">8830192841</span>
+          <button type="button" id="btn-copy-bank1" class="btn-copy-account">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Salin
+          </button>
+        </div>
+        <div class="bank-holder">Atas Nama: <span id="bank1-holder">Raden Arya Danendra</span></div>
+      </div>
+
+      <!-- Bank 2 -->
+      <div class="bank-card">
+        <div class="bank-header">
+          <div class="bank-chip"></div>
+          <div class="bank-name" id="bank2-name">MANDIRI</div>
+        </div>
+        <div class="bank-number-box">
+          <span class="bank-number" id="bank2-num">1370019283741</span>
+          <button type="button" id="btn-copy-bank2" class="btn-copy-account">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Salin
+          </button>
+        </div>
+        <div class="bank-holder">Atas Nama: <span id="bank2-holder">Adinda Kirana Larasati</span></div>
+      </div>
+
+      <!-- Physical Gift Address -->
+      <div class="card-luxury" style="text-align: center; margin-top: 1rem;">
+        <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin-bottom: 0.5rem;">Kirim Kado Fisik</h4>
+        <p id="shipping-address-text" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6;">
+          The Senopati Residence Tower A No. 12B, Kebayoran Baru, Jakarta Selatan
+        </p>
+        <button type="button" id="btn-copy-address" class="btn-gold-outline" style="max-width: 220px; margin: 0 auto;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Salin Alamat Kado
+        </button>
+      </div>
+    </section>
+
+    <!-- RSVP & REAL-TIME GUESTBOOK (BUKU TAMU FIRESTORE) -->
+    <section id="section-rsvp">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <p class="hero-subtitle">Guest Book &amp; RSVP</p>
+        <h2 class="font-serif gold-text" style="font-size: 2.4rem;">Konfirmasi &amp; Doa Restu</h2>
+        <div class="ornate-divider">
+          <span class="ornate-line"></span>
+          <span class="ornate-diamond"></span>
+          <span class="ornate-line"></span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Mohon kesediaan Bapak/Ibu/Saudara/i untuk mengonfirmasi kehadiran dan menitipkan doa restu secara langsung melalui sistem cloud kami.
+        </p>
+      </div>
+
+      <div class="card-luxury">
+        <form id="rsvp-form" class="rsvp-form">
+          <div class="form-group">
+            <label for="rsvp-name" class="form-label">Nama Lengkap</label>
+            <input type="text" id="rsvp-name" class="form-input" placeholder="Masukkan nama Anda..." required />
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-status" class="form-label">Konfirmasi Kehadiran</label>
+            <select id="rsvp-status" class="form-select">
+              <option value="hadir">Pasti Hadir</option>
+              <option value="ragu">Masih Ragu</option>
+              <option value="tidak">Mohon Maaf, Tidak Bisa Hadir</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-guests" class="form-label">Jumlah Tamu yang Hadir</label>
+            <select id="rsvp-guests" class="form-select">
+              <option value="1">1 Orang</option>
+              <option value="2">2 Orang</option>
+              <option value="3">3 Orang</option>
+              <option value="4">4 Orang atau lebih</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-message" class="form-label">Doa &amp; Ucapan Selamat</label>
+            <textarea id="rsvp-message" class="form-textarea" placeholder="Tuliskan ucapan dan doa terbaik untuk kedua mempelai..." required></textarea>
+          </div>
+
+          <button type="submit" id="btn-submit-rsvp" class="btn-submit-rsvp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            Kirim Konfirmasi &amp; Doa
+          </button>
+        </form>
+
+        <!-- Live Realtime Wishes Feed (Powered by Firebase Firestore) -->
+        <div class="wishes-feed-header">
+          <h4 class="font-serif gold-text" style="font-size: 1.35rem;">Doa Restu Sahabat &amp; Keluarga</h4>
+          <span class="wishes-count-badge" id="wishes-total-count">0 Ucapan</span>
+        </div>
+
+        <div class="wishes-list" id="wishes-feed-list">
+          <!-- Populated dynamically via Firestore onSnapshot -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING & DEXXDIGITAL FOOTER -->
+    <footer class="footer-section">
+      <div style="margin-bottom: 2rem;">
+        <p class="font-serif gold-text" style="font-size: 2rem; margin-bottom: 0.5rem;">Terima Kasih</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 380px; margin: 0 auto; line-height: 1.6;">
+          Merupakan suatu kehormatan dan kebahagiaan yang mendalam bagi kami atas kehadiran serta doa restu Bapak/Ibu/Saudara/i sekalian.
+        </p>
+        <p class="font-script gold-text" style="font-size: 2.8rem; margin-top: 1rem;">Arya &amp; Dinda</p>
+      </div>
+
+      <div class="ornate-divider" style="max-width: 240px; margin: 1.5rem auto;">
+        <span class="ornate-line"></span>
+        <span class="ornate-diamond"></span>
+        <span class="ornate-line"></span>
+      </div>
+
+      <!-- DexxDigital Branding (Clickable to trigger secret admin or contact) -->
+      <div style="margin-top: 2rem;">
+        <div id="dexx-branding-btn" class="brand-dexx" title="Klik 3x untuk membuka Panel Admin Client">
+          <span>Developed with passion by</span>
+          <span class="gold-text" id="dev-brand-name" style="font-weight: 800;">DexxDigital</span>
+        </div>
+        <p id="dev-brand-tagline" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Exclusive Digital Wedding &amp; Web Creative Studio</p>
+
+        <!-- DexxDigital Contact Channels: TikTok, Shopee, Instagram, WhatsApp (Professional Clean SVG Icons) -->
+        <div class="social-contacts-grid">
+          <!-- TikTok -->
+          <a id="dev-link-tiktok" href="https://tiktok.com/@dexxdigital" target="_blank" rel="noopener noreferrer" class="social-btn" title="Kunjungi TikTok DexxDigital" aria-label="TikTok">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/>
+            </svg>
+          </a>
+
+          <!-- Shopee -->
+          <a id="dev-link-shopee" href="https://shopee.co.id/dexxdigital" target="_blank" rel="noopener noreferrer" class="social-btn" title="Kunjungi Shopee DexxDigital" aria-label="Shopee">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.9 8.2h-3.4C16.1 5.3 14.3 3 12 3S7.9 5.3 7.5 8.2H4.1c-.6 0-1.1.5-1.1 1.1l1.4 10.7c.1.9.9 1.6 1.8 1.6h11.6c.9 0 1.7-.7 1.8-1.6l1.4-10.7c0-.6-.5-1.1-1.1-1.1zM12 4.9c1.3 0 2.5 1.5 2.8 3.3H9.2C9.5 6.4 10.7 4.9 12 4.9zm2.8 11.2c-.4.4-1.1.7-1.9.7-1.2 0-2.1-.6-2.1-1.7 0-1.9 2.7-1.7 2.7-2.6 0-.3-.3-.5-.7-.5-.5 0-.9.2-1.2.6l-.8-.8c.5-.6 1.2-.9 2-.9 1.2 0 1.9.7 1.9 1.6 0 1.8-2.7 1.7-2.7 2.6 0 .4.4.6.8.6.5 0 1-.3 1.3-.7l.7.7z"/>
+            </svg>
+          </a>
+
+          <!-- Instagram -->
+          <a id="dev-link-ig" href="https://instagram.com/dexxdigital" target="_blank" rel="noopener noreferrer" class="social-btn" title="Kunjungi Instagram DexxDigital" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a id="dev-link-wa" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="social-btn" title="Hubungi WhatsApp DexxDigital" aria-label="WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==========================================================================
+       Floating Bottom Quick Navigation Dock
+       ========================================================================== -->
+  <nav class="bottom-dock" aria-label="Navigasi Menu Cepat">
+    <a href="#section-home" class="dock-link active">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Beranda</span>
+    </a>
+    <a href="#section-couple" class="dock-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Mempelai</span>
+    </a>
+    <a href="#section-events" class="dock-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      <span>Acara</span>
+    </a>
+    <a href="#section-story" class="dock-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+      <span>Kisah</span>
+    </a>
+    <a href="#section-gallery" class="dock-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <polyline points="21 15 16 10 5 21"></polyline>
+      </svg>
+      <span>Galeri</span>
+    </a>
+    <a href="#section-gift" class="dock-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 12 20 22 4 22 4 12"></polyline>
+        <rect x="2" y="7" width="20" height="5"></rect>
+        <line x1="12" y1="22" x2="12" y2="7"></line>
+        <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+        <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+      </svg>
+      <span>Hadiah</span>
+    </a>
+    <a href="#section-rsvp" class="dock-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span>Ucapan</span>
+    </a>
+  </nav>
+
+  <!-- ==========================================================================
+       SECRET ADMIN AUTH MODAL (PIN ACCESS)
+       ========================================================================== -->
+  <div id="admin-auth-modal">
+    <div class="auth-card">
+      <div style="width: 52px; height: 52px; margin: 0 auto 1.25rem; background: var(--badge-bg); border: 1px solid var(--accent-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent-gold);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h3 class="font-serif gold-text" style="font-size: 1.8rem; margin-bottom: 0.5rem;">DexxDigital Secret CMS</h3>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Masukkan PIN Administrator untuk mengedit seluruh konten dan tema web secara live di Firebase Firestore. (Default: <strong>1234</strong>)
+      </p>
+
+      <input type="password" id="admin-pin-input" class="form-input" placeholder="Masukkan PIN 4-digit..." style="text-align: center; letter-spacing: 0.25em; font-size: 1.3rem; margin-bottom: 1.25rem;" maxlength="8" />
+
+      <div style="display: flex; gap: 10px;">
+        <button type="button" id="btn-close-auth" class="btn-admin-close" style="flex: 1;">Batal</button>
+        <button type="button" id="btn-submit-pin" class="btn-admin-save" style="flex: 2; justify-content: center;">Masuk Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SECRET ADMIN DASHBOARD MODAL (FULL CLOUD CMS)
+       ========================================================================== -->
+  <div id="admin-dashboard-modal">
+    <div class="dashboard-panel">
+      <!-- Header -->
+      <div class="dashboard-header">
+        <div class="dashboard-title-group">
+          <div style="width: 32px; height: 32px; border-radius: 8px; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #150F04;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-serif gold-text" style="font-size: 1.4rem; line-height: 1.2;">DexxDigital Cloud CMS</h3>
+            <span style="font-size: 0.72rem; color: #81C784;">Cloud Database: Firebase Firestore Active</span>
+          </div>
+        </div>
+
+        <button type="button" id="btn-close-dashboard" class="btn-admin-close" title="Tutup Panel">&times;</button>
+      </div>
+
+      <!-- Tab Navigation Bar -->
+      <div class="dashboard-tabs-bar">
+        <button type="button" class="tab-btn active" data-tab="general">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Umum &amp; Tema
+        </button>
+        <button type="button" class="tab-btn" data-tab="couple">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          Mempelai &amp; Foto File
+        </button>
+        <button type="button" class="tab-btn" data-tab="events">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Acara &amp; Countdown
+        </button>
+        <button type="button" class="tab-btn" data-tab="story-gallery">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          Galeri &amp; Kisah
+        </button>
+        <button type="button" class="tab-btn" data-tab="gifts">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line></svg>
+          Amplop Digital
+        </button>
+        <button type="button" class="tab-btn" data-tab="wishes">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Buku Tamu / RSVP
+        </button>
+        <button type="button" class="tab-btn" data-tab="links">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          Generator Link Tamu
+        </button>
+      </div>
+
+      <!-- Tab Content Area -->
+      <div class="dashboard-content-area">
+        
+        <!-- TAB 1: UMUM & TEMA -->
+        <div id="tab-general" class="tab-pane active">
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin-bottom: 1rem;">Pengaturan Desain &amp; Tema</h4>
+          
+          <div class="admin-field-grid">
+            <div class="form-group">
+              <label class="form-label" for="adm-theme">Pilih Tema Warna (Real-Time Switcher)</label>
+              <select id="adm-theme" class="form-select">
+                <option value="pearl-light">[Cerah / Light] Pearl Ivory &amp; Royal Gold</option>
+                <option value="blush-light">[Cerah / Light] Blush Champagne &amp; Soft Rose</option>
+                <option value="sage-light">[Cerah / Light] Sage Mint &amp; Botanical Gold</option>
+                <option value="emerald">[Gelap / Dark] Emerald Royale &amp; Gold (Motion-03)</option>
+                <option value="rosegold">[Gelap / Dark] Rose Gold &amp; Blush Royale</option>
+                <option value="midnight">[Gelap / Dark] Midnight Celestial &amp; Platinum Gold</option>
+                <option value="terracotta">[Gelap / Dark] Terracotta Bohemian &amp; Ochre</option>
+                <option value="champagne">[Gelap / Dark] Classic Champagne &amp; Ivory Luxury</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="adm-pin">Ganti PIN Administrator</label>
+              <input type="text" id="adm-pin" class="form-input" placeholder="1234" maxlength="8" />
+            </div>
+          </div>
+
+          <div class="admin-field-grid">
+            <div class="form-group">
+              <label class="form-label" for="adm-gate-subtitle">Sub-Judul Gerbang Pembuka</label>
+              <input type="text" id="adm-gate-subtitle" class="form-input" placeholder="The Wedding Celebration Of" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="adm-hero-badge-date">Teks Tanggal Utama (Hero Badge)</label>
+              <input type="text" id="adm-hero-badge-date" class="form-input" placeholder="Sabtu, 28 Desember 2026" />
+            </div>
+          </div>
+
+          <div class="admin-field-grid">
+            <div class="form-group">
+              <label class="form-label" for="adm-audio-url">URL Musik Latar Belakang (.mp3)</label>
+              <input type="url" id="adm-audio-url" class="form-input" placeholder="https://..." />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="adm-audio-title">Judul Musik</label>
+              <input type="text" id="adm-audio-title" class="form-input" placeholder="A Thousand Years - Piano" />
+            </div>
+          </div>
+
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin: 1.5rem 0 1rem;">Ayat / Kutipan Suci</h4>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label" for="adm-quote-arabic">Teks Arab (Kaligrafi)</label>
+            <textarea id="adm-quote-arabic" class="form-textarea" rows="2" style="direction: rtl;"></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label" for="adm-quote-trans">Terjemahan Arti</label>
+            <textarea id="adm-quote-trans" class="form-textarea" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="adm-quote-source">Sumber Kutipan / Surat</label>
+            <input type="text" id="adm-quote-source" class="form-input" placeholder="QS. Ar-Rum : 21" />
+          </div>
+        </div>
+
+        <!-- TAB 2: PROFIL MEMPELAI & UPLOAD FOTO VIA FILE -->
+        <div id="tab-couple" class="tab-pane">
+          <p style="font-size: 0.85rem; color: #81C784; margin-bottom: 1.25rem;">
+            * Sesuai permintaan Anda, foto mempelai dapat diubah langsung melalui upload file dari galeri HP/laptop (FileReader).
+          </p>
+
+          <!-- Mempelai Pria -->
+          <div class="card-luxury" style="margin-bottom: 1.5rem; background: rgba(0,0,0,0.25);">
+            <h4 class="font-serif gold-text" style="font-size: 1.4rem; margin-bottom: 1rem;">Mempelai Pria (Groom)</h4>
+            
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start;">
+              <!-- Photo Upload Box -->
+              <div class="photo-uploader" style="width: 170px;">
+                <div class="photo-preview-box">
+                  <img id="adm-groom-photo-preview" src="" alt="Pratinjau Groom" />
+                </div>
+                <label for="adm-groom-file" style="font-size: 0.75rem; color: var(--text-gold); cursor: pointer; display: block; font-weight: 600;">
+                  Pilih File Foto Pria
+                </label>
+                <input type="file" id="adm-groom-file" accept="image/*" style="display: none;" />
+                <input type="hidden" id="adm-groom-photo-url" />
+              </div>
+
+              <!-- Inputs -->
+              <div style="flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 10px;">
+                <div class="form-group">
+                  <label class="form-label" for="adm-groom-fullname">Nama Lengkap &amp; Gelar</label>
+                  <input type="text" id="adm-groom-fullname" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="adm-groom-nickname">Nama Panggilan</label>
+                  <input type="text" id="adm-groom-nickname" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="adm-groom-parents">Keterangan Orang Tua</label>
+                  <input type="text" id="adm-groom-parents" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="adm-groom-ig">Username Instagram (tanpa @)</label>
+                  <input type="text" id="adm-groom-ig" class="form-input" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mempelai Wanita -->
+          <div class="card-luxury" style="background: rgba(0,0,0,0.25);">
+            <h4 class="font-serif gold-text" style="font-size: 1.4rem; margin-bottom: 1rem;">Mempelai Wanita (Bride)</h4>
+            
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start;">
+              <!-- Photo Upload Box -->
+              <div class="photo-uploader" style="width: 170px;">
+                <div class="photo-preview-box">
+                  <img id="adm-bride-photo-preview" src="" alt="Pratinjau Bride" />
+                </div>
+                <label for="adm-bride-file" style="font-size: 0.75rem; color: var(--text-gold); cursor: pointer; display: block; font-weight: 600;">
+                  Pilih File Foto Wanita
+                </label>
+                <input type="file" id="adm-bride-file" accept="image/*" style="display: none;" />
+                <input type="hidden" id="adm-bride-photo-url" />
+              </div>
+
+              <!-- Inputs -->
+              <div style="flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 10px;">
+                <div class="form-group">
+                  <label class="form-label" for="adm-bride-fullname">Nama Lengkap &amp; Gelar</label>
+                  <input type="text" id="adm-bride-fullname" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="adm-bride-nickname">Nama Panggilan</label>
+                  <input type="text" id="adm-bride-nickname" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="adm-bride-parents">Keterangan Orang Tua</label>
+                  <input type="text" id="adm-bride-parents" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="adm-bride-ig">Username Instagram (tanpa @)</label>
+                  <input type="text" id="adm-bride-ig" class="form-input" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: ACARA & COUNTDOWN -->
+        <div id="tab-events" class="tab-pane">
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label" for="adm-wedding-date">Tanggal &amp; Waktu Target Countdown</label>
+            <input type="datetime-local" id="adm-wedding-date" class="form-input" />
+          </div>
+
+          <!-- Akad Nikah Details -->
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin-bottom: 0.75rem;">1. Detail Akad Nikah</h4>
+          <div class="admin-field-grid">
+            <div class="form-group">
+              <label class="form-label" for="adm-akad-title">Judul Sesi</label>
+              <input type="text" id="adm-akad-title" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adm-akad-date">Hari &amp; Tanggal</label>
+              <input type="text" id="adm-akad-date" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adm-akad-time">Waktu Pelaksanaan</label>
+              <input type="text" id="adm-akad-time" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adm-akad-venue">Nama Gedung / Tempat</label>
+              <input type="text" id="adm-akad-venue" class="form-input" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label" for="adm-akad-address">Alamat Lengkap</label>
+              <input type="text" id="adm-akad-address" class="form-input" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label" for="adm-akad-maps">Tautan Google Maps</label>
+              <input type="url" id="adm-akad-maps" class="form-input" />
+            </div>
+          </div>
+
+          <!-- Resepsi Details -->
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin: 1.5rem 0 0.75rem;">2. Detail Resepsi Pernikahan</h4>
+          <div class="admin-field-grid">
+            <div class="form-group">
+              <label class="form-label" for="adm-resepsi-title">Judul Sesi</label>
+              <input type="text" id="adm-resepsi-title" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adm-resepsi-date">Hari &amp; Tanggal</label>
+              <input type="text" id="adm-resepsi-date" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adm-resepsi-time">Waktu Pelaksanaan</label>
+              <input type="text" id="adm-resepsi-time" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="adm-resepsi-venue">Nama Gedung / Ballroom</label>
+              <input type="text" id="adm-resepsi-venue" class="form-input" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label" for="adm-resepsi-address">Alamat Lengkap</label>
+              <input type="text" id="adm-resepsi-address" class="form-input" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label" for="adm-resepsi-maps">Tautan Google Maps</label>
+              <input type="url" id="adm-resepsi-maps" class="form-input" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label class="form-label" for="adm-stream-url">Tautan Live Streaming (YouTube / IG Live)</label>
+              <input type="url" id="adm-stream-url" class="form-input" />
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: GALERI & KISAH CINTA -->
+        <div id="tab-story-gallery" class="tab-pane">
+          <!-- Love Story Editor -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+            <div>
+              <h4 class="font-serif gold-text" style="font-size: 1.3rem;">Kelola Kisah Cinta Kami</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                Tambah, ubah, atau hapus momen perjalanan cinta yang tampil di timeline website.
+              </p>
+            </div>
+            <button type="button" id="btn-add-story-item" class="btn-admin-save" style="padding: 0.5rem 1rem; font-size: 0.8rem; width: auto; white-space: nowrap;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Tambah Momen
+            </button>
+          </div>
+
+          <div id="adm-story-list-container" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 2.25rem;">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+          <!-- Gallery Photos Manager -->
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin-bottom: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--border-gold-subtle);">
+            Kelola Foto Galeri Pernikahan
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Upload foto baru dari file lokal atau tambahkan link URL foto.
+          </p>
+
+          <div style="display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap;">
+            <label for="adm-gallery-file" class="btn-gold-outline" style="width: auto; cursor: pointer;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              Upload Foto dari File
+            </label>
+            <input type="file" id="adm-gallery-file" accept="image/*" style="display: none;" />
+
+            <div style="display: flex; gap: 6px; flex: 1; min-width: 250px;">
+              <input type="url" id="adm-gallery-url-input" class="form-input" placeholder="Atau tempel URL gambar..." />
+              <button type="button" id="btn-add-gallery-url" class="btn-gold-outline" style="width: auto; white-space: nowrap;">Tambah URL</button>
+            </div>
+          </div>
+
+          <!-- Gallery List Grid -->
+          <div id="adm-gallery-preview-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; margin-bottom: 1.5rem;">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- TAB 5: AMPLOP DIGITAL -->
+        <div id="tab-gifts" class="tab-pane">
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin-bottom: 1rem;">Rekening Bank &amp; Kado</h4>
+
+          <!-- Bank 1 -->
+          <div class="card-luxury" style="margin-bottom: 1.25rem; background: rgba(0,0,0,0.25);">
+            <h5 class="gold-text" style="font-size: 1.1rem; margin-bottom: 0.75rem;">Rekening Bank 1</h5>
+            <div class="admin-field-grid">
+              <div class="form-group">
+                <label class="form-label" for="adm-bank1-name">Nama Bank (misal: BCA)</label>
+                <input type="text" id="adm-bank1-name" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="adm-bank1-num">Nomor Rekening</label>
+                <input type="text" id="adm-bank1-num" class="form-input" />
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label class="form-label" for="adm-bank1-holder">Atas Nama (Pemilik Rekening)</label>
+                <input type="text" id="adm-bank1-holder" class="form-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Bank 2 -->
+          <div class="card-luxury" style="margin-bottom: 1.25rem; background: rgba(0,0,0,0.25);">
+            <h5 class="gold-text" style="font-size: 1.1rem; margin-bottom: 0.75rem;">Rekening Bank 2</h5>
+            <div class="admin-field-grid">
+              <div class="form-group">
+                <label class="form-label" for="adm-bank2-name">Nama Bank (misal: MANDIRI / BRI / BSI)</label>
+                <input type="text" id="adm-bank2-name" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="adm-bank2-num">Nomor Rekening</label>
+                <input type="text" id="adm-bank2-num" class="form-input" />
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label class="form-label" for="adm-bank2-holder">Atas Nama (Pemilik Rekening)</label>
+                <input type="text" id="adm-bank2-holder" class="form-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Physical Gift Address -->
+          <div class="form-group">
+            <label class="form-label" for="adm-shipping-address">Alamat Pengiriman Kado Fisik</label>
+            <textarea id="adm-shipping-address" class="form-textarea" rows="2"></textarea>
+          </div>
+        </div>
+
+        <!-- TAB 6: DATA UCAPAN & RSVP REALTIME -->
+        <div id="tab-wishes" class="tab-pane">
+          <div style="display: flex; gap: 12px; margin-bottom: 1.25rem; flex-wrap: wrap;">
+            <div class="countdown-box" style="flex: 1; padding: 0.6rem;">
+              <div class="countdown-val" id="adm-stat-total" style="font-size: 1.6rem;">0</div>
+              <div class="countdown-label">Total Ucapan</div>
+            </div>
+            <div class="countdown-box" style="flex: 1; padding: 0.6rem;">
+              <div class="countdown-val" id="adm-stat-hadir" style="font-size: 1.6rem; color: #81C784;">0</div>
+              <div class="countdown-label">Konfirmasi Hadir</div>
+            </div>
+            <div class="countdown-box" style="flex: 1; padding: 0.6rem;">
+              <div class="countdown-val" id="adm-stat-tidak" style="font-size: 1.6rem; color: #E57373;">0</div>
+              <div class="countdown-label">Tidak Hadir</div>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto; background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid var(--border-gold-subtle);">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border-gold); background: rgba(0,0,0,0.4); color: var(--text-gold);">
+                  <th style="padding: 10px 12px;">Nama Tamu</th>
+                  <th style="padding: 10px 12px;">Kehadiran</th>
+                  <th style="padding: 10px 12px;">Doa / Pesan</th>
+                  <th style="padding: 10px 12px;">Waktu</th>
+                  <th style="padding: 10px 12px; text-align: right;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adm-wishes-table-body">
+                <!-- Live data from Firestore -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 7: LINK GENERATOR TAMU & WHATSAPP -->
+        <div id="tab-links" class="tab-pane">
+          <h4 class="font-serif gold-text" style="font-size: 1.3rem; margin-bottom: 0.5rem;">Generator Undangan Tamu Personal</h4>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            Ketikkan nama tamu atau keluarga untuk membuat tautan undangan resmi dan format broadcast WhatsApp dalam 1 klik.
+          </p>
+
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label class="form-label" for="adm-gen-guest-name">Nama Tamu Undangan</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="adm-gen-guest-name" class="form-input" placeholder="Contoh: Bpk. H. Ahmad Sahroni &amp; Keluarga" />
+              <button type="button" id="btn-gen-guest-link" class="btn-admin-save" style="white-space: nowrap;">Buat Undangan</button>
+            </div>
+          </div>
+
+          <div id="adm-gen-result-container" style="display: none; background: rgba(0,0,0,0.35); padding: 1.25rem; border-radius: 14px; border: 1px solid var(--border-gold);">
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label">Tautan Undangan Tamu</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="adm-gen-result-link" class="form-input" readonly />
+                <button type="button" id="btn-copy-gen-link" class="btn-copy-account" style="padding: 0 1rem;">Salin Link</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Teks Pesan WhatsApp Siap Kirim</label>
+              <textarea id="adm-gen-result-wa" class="form-textarea" rows="6" readonly></textarea>
+              <button type="button" id="btn-copy-gen-wa" class="btn-copy-account" style="align-self: flex-start; margin-top: 8px; padding: 0.5rem 1rem;">
+                Salin Teks WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="dashboard-footer">
+        <button type="button" id="btn-reset-default" class="btn-admin-close" style="color: #F87171; border-color: rgba(248, 113, 113, 0.4);">
+          Reset ke Template Awal
+        </button>
+        <button type="button" id="btn-save-admin" class="btn-admin-save">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          Simpan Perubahan ke Firebase
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SECRET MASTER DEVELOPER AUTH MODAL (CTRL+SHIFT+89 ACCESS)
+       ========================================================================== -->
+  <div id="dev-auth-modal">
+    <div class="auth-card" style="border-color: #60A5FA; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(96, 165, 250, 0.25);">
+      <div style="width: 52px; height: 52px; margin: 0 auto 1.25rem; background: rgba(59, 130, 246, 0.15); border: 1px solid #60A5FA; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #60A5FA;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      </div>
+      <h3 class="font-serif" style="font-size: 1.8rem; margin-bottom: 0.5rem; color: #93C5FD;">Developer Console</h3>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Akses Master Tersembunyi (Shortcut: <strong>Ctrl + Shift + 89</strong>). Masukkan Master PIN Developer untuk mengedit data branding DexxDigital &amp; lisensi client. (Default: <strong>8989</strong>)
+      </p>
+
+      <input type="password" id="dev-pin-input" class="form-input" placeholder="Master PIN..." style="text-align: center; letter-spacing: 0.25em; font-size: 1.3rem; margin-bottom: 1.25rem; border-color: rgba(96, 165, 250, 0.4);" maxlength="8" />
+
+      <div style="display: flex; gap: 10px;">
+        <button type="button" id="btn-close-dev-auth" class="btn-admin-close" style="flex: 1;">Batal</button>
+        <button type="button" id="btn-submit-dev-pin" class="btn-admin-save" style="flex: 2; justify-content: center; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); border-color: #60A5FA; color: #fff;">Masuk Developer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SECRET MASTER DEVELOPER DASHBOARD MODAL
+       ========================================================================== -->
+  <div id="dev-dashboard-modal">
+    <div class="dashboard-panel" style="border-color: #60A5FA; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 40px rgba(59, 130, 246, 0.25);">
+      <!-- Header -->
+      <div class="dashboard-header" style="background: rgba(15, 23, 42, 0.6); border-bottom-color: rgba(96, 165, 250, 0.25);">
+        <div class="dashboard-title-group">
+          <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #60A5FA 0%, #2563EB 100%); display: flex; align-items: center; justify-content: center; color: #FFFFFF;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-serif" style="font-size: 1.4rem; line-height: 1.2; color: #93C5FD;">DexxDigital Master Developer Console</h3>
+            <span style="font-size: 0.72rem; color: #60A5FA;">Protected System • Hanya Developer yang Memiliki Akses</span>
+          </div>
+        </div>
+
+        <button type="button" id="btn-close-dev-dashboard" class="btn-admin-close" title="Tutup Panel">&times;</button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="dashboard-content-area" style="padding: 1.5rem;">
+        <div style="background: rgba(30, 58, 138, 0.25); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <div style="font-size: 0.88rem; font-weight: 600; color: #93C5FD;">Data Development &amp; Hak Cipta Studio</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">Data ini ditampilkan di footer publik dan TIDAK DAPAT diubah oleh Client dari Panel Client biasa.</div>
+          </div>
+          <button type="button" id="btn-dev-open-client-cms" class="btn-admin-save" style="padding: 0.45rem 0.9rem; font-size: 0.78rem; width: auto; background: rgba(96, 165, 250, 0.15); border-color: #60A5FA; color: #93C5FD;">
+            Buka Panel Client (Bypass)
+          </button>
+        </div>
+
+        <!-- Section 1: Developer Branding & Contacts -->
+        <h4 style="font-size: 1.15rem; color: #93C5FD; margin-bottom: 1rem; font-weight: 600;">1. Identitas Branding Developer</h4>
+        <div class="admin-field-grid">
+          <div class="form-group">
+            <label class="form-label" for="dev-input-brand">Nama Brand / Agency Developer</label>
+            <input type="text" id="dev-input-brand" class="form-input" placeholder="DexxDigital" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dev-input-tagline">Slogan / Tagline Studio</label>
+            <input type="text" id="dev-input-tagline" class="form-input" placeholder="Exclusive Digital Wedding &amp; Web Creative Studio" />
+          </div>
+        </div>
+
+        <h4 style="font-size: 1.15rem; color: #93C5FD; margin: 1.5rem 0 1rem; font-weight: 600;">2. Kontak &amp; Media Sosial Developer (Footer Links)</h4>
+        <div class="admin-field-grid">
+          <div class="form-group">
+            <label class="form-label" for="dev-input-wa">Tautan WhatsApp / Kontak Resmi</label>
+            <input type="url" id="dev-input-wa" class="form-input" placeholder="https://wa.me/6281234567890" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dev-input-tiktok">Tautan Profil TikTok</label>
+            <input type="url" id="dev-input-tiktok" class="form-input" placeholder="https://tiktok.com/@dexxdigital" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dev-input-shopee">Tautan Toko Shopee</label>
+            <input type="url" id="dev-input-shopee" class="form-input" placeholder="https://shopee.co.id/dexxdigital" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dev-input-ig">Tautan Profil Instagram</label>
+            <input type="url" id="dev-input-ig" class="form-input" placeholder="https://instagram.com/dexxdigital" />
+          </div>
+        </div>
+
+        <h4 style="font-size: 1.15rem; color: #93C5FD; margin: 1.5rem 0 1rem; font-weight: 600;">3. Pengaturan Keamanan &amp; Kontrol Client</h4>
+        <div class="admin-field-grid">
+          <div class="form-group">
+            <label class="form-label" for="dev-input-masterpin">Ganti Master PIN Developer (Shortcut: Ctrl+Shift+89)</label>
+            <input type="text" id="dev-input-masterpin" class="form-input" placeholder="8989" maxlength="8" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dev-input-clientpin">Lihat / Reset PIN Client (Panel Client)</label>
+            <input type="text" id="dev-input-clientpin" class="form-input" placeholder="1234" maxlength="8" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="dashboard-footer" style="border-top-color: rgba(96, 165, 250, 0.25);">
+        <button type="button" id="btn-cancel-dev" class="btn-admin-close">Tutup</button>
+        <button type="button" id="btn-save-dev" class="btn-admin-save" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); border-color: #60A5FA; color: #fff;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          Simpan Data Developer ke Firebase
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       IMAGE LIGHTBOX MODAL
+       ========================================================================== -->
+  <div id="lightbox-modal">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Tutup Pratinjau">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <img id="lightbox-img" src="" alt="Pratinjau Galeri" />
+  </div>
+
+  <!-- Pure Vanilla Modular JavaScript -->
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
